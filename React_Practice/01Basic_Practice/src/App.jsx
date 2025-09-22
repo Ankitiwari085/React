@@ -7,7 +7,7 @@ import Test from './TestUseFormStatus'
 import Transition from './TestUseTransition'
 import DerivedState from './TestDerivedState'
 import Object, { Array } from './Object_in_State'
-
+import TestUseActionState from './TestUSeActionState'
 function App() {
   const handleRef=useRef();
   const handleClick=()=>{
@@ -22,8 +22,9 @@ function App() {
       {/* <Test/>
       <User handleClick={handleClick} ref={handleRef}/> */}
       {/* <DerivedState/> */}
-      <Object/>
-      <Array/>
+      {/* <Object/>
+      <Array/> */}
+      <TestUseActionState/>
     </>
   )
 }
