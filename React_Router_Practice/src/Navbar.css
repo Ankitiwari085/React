@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    background-color: rgb(168, 171, 173);
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+     background-color: rgb(84, 175, 128);
+
+}
+
+.logo{
+    display: flex;
+    margin: 29px;
+    padding: 10px;
+
+}
+.menu ul{
+    display: flex;
+    justify-content: space-between;
+
+}
+.menu ul li{
+  display: flex;
+    justify-content: space-between;
+    margin: 3px;
+    padding: 16px;
+}
+.link{
+    text-decoration: none; 
+    font-size: 20px;
+    color:black;    
+}
+.image{
+    height: 37px;
+    width: 65px;
+    border-radius: 69px;
+}

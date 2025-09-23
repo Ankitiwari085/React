@@ -2,17 +2,17 @@ import { useState } from 'react'
 import { Link, Route, Routes } from 'react-router'
 import Home from './Home'
 import About from './About'
+import Login from './Login'
+import Navbar from './Navbar'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <Link to={'/'}>Home</Link><br/><br/>
-    <Link to={'/about'}>About</Link>
+    <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>
+      <Route path='/login' element={<Login/>}/>
     </Routes>
     </>
   )
