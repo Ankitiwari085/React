@@ -1,7 +1,7 @@
-export default function Department(){
-    return(
+export default function Department() {
+    return (
         <>
-        <h2>Department Page</h2>
+            <h2>Department Page</h2>
         </>
     )
 }

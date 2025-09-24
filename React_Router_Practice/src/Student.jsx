@@ -1,7 +1,7 @@
-export default function Student(){
-    return(
+export default function Student() {
+    return (
         <>
-        <h2>Student Page</h2>
+            <h2>Student Page</h2>
         </>
     )
 }
