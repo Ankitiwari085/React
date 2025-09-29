@@ -1,0 +1,20 @@
+.user-list{
+  display: flex;
+  justify-content: space-around;
+  font-size: larger;
+  list-style: none;
+
+  flex-wrap: wrap;
+  gap: 1rem;  
+} 
+
+.user-list-header{
+  display: flex;
+  justify-content: space-around;
+  font-size: 25px;
+  list-style: none;
+
+  flex-wrap: wrap;
+  gap: 1rem;  
+  
+}

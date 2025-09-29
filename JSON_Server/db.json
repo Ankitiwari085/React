@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Sam",
+      "email": "test1@gmail.com"
+    },
+    {
+      "id": "2",
+      "name": "Lovely",
+      "email": "test2@gmail.com"
+    },
+    {
+      "id": "3",
+      "name": "Jhon",
+      "email": "test3@gmail.com"
+    },
+    {
+      "id": "4",
+      "name": "Cruce",
+      "email": "test4@gmail.com"
+    },
+    {
+      "id": "5",
+      "name": "Marco",
+      "email": "test5@gmail.com"
+    },
+    {
+      "name": "Prince Kumar",
+      "email": "prince@gmail.com",
+      "id": "d78c"
+    },
+    {
+      "id": "a14c",
+      "name": "Sonika Priya",
+      "email": "sonika@123"
+    }
+  ]
+}
