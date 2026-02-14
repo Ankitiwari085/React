@@ -4,19 +4,17 @@ import Logo from '../Logo'
 
 function Footer() {
     return (
-        <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
-            <div className="relative z-10 mx-auto max-w-7xl px-4">
-                <div className="-m-6 flex flex-wrap">
-                    <div className="w-full p-6 md:w-1/2 lg:w-5/12">
-                        <div className="flex h-full flex-col justify-between">
-                            <div className="mb-4 inline-flex items-center">
-                                <Logo width="100px" />
+        <section className="bg-gray-900 text-white py-12 mt-12">
+            <div className="mx-auto max-w-7xl px-4">
+                <div className="flex flex-wrap gap-8">
+                    <div className="w-full md:w-1/2 lg:w-1/4">
+                        <div className="flex flex-col">
+                            <div className="mb-4">
+                                <Logo width="80px" />
                             </div>
-                            <div>
-                                <p className="text-sm text-gray-600">
-                                    &copy; Copyright 2023. All Rights Reserved by DevUI.
-                                </p>
-                            </div>
+                            <p className="text-sm text-gray-400">
+                                &copy; 2024 Blog Application. All Rights Reserved.
+                            </p>
                         </div>
                     </div>
                     <div className="w-full p-6 md:w-1/2 lg:w-2/12">

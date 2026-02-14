@@ -15,8 +15,7 @@ import Post from './pages/Post.jsx'
 const router =createBrowserRouter([
   {
     path:'/',
-    // element:<App/>,
-    // element: <div>Test Route</div>, 
+    element:<App/>,
     children:[
       {
         path:'/',

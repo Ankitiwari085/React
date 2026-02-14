@@ -29,55 +29,53 @@ function Login() {
     }
     return (
         <div 
-        className='flex items-center justify-center w-full'>
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
-                <div className='mb-2 flex justify-center'>
-                    <span className='inline-block w-full max-w-[100px]'>
-                        <Logo width='100%'/>
-                    </span>
+        className='flex items-center justify-center min-h-screen w-full bg-gray-50 py-8'>
+            <div className={`mx-auto w-full max-w-md bg-white rounded-lg p-8 shadow-lg border border-gray-200`}>
+                <div className='mb-6 flex justify-center'>
+                    <Logo width='80px'/>
                 </div>
-                <h2 className='text-center text-2xl font-bold leading-tight '>
-                    Sign in to Your account </h2>
-                    <p className='mt-2 text-center text-base text-black/60'>
-                        Don&apos;t have any account?&nbsp;
+                <h2 className='text-center text-3xl font-bold text-gray-900 mb-2'>
+                    Welcome Back
+                </h2>
+                    <p className='mt-2 text-center text-sm text-gray-600 mb-6'>
+                        Don&apos;t have an account?&nbsp;
                         <Link
                          to="/signup"
-                         className='font-medium text-primary transition-all duration-200 hover:underline'>
+                         className='font-semibold text-blue-600 hover:text-blue-700 transition'>
                              Sign Up
                         </Link>
                     </p>
 
-                    {error &&<p className='text-red-600  mt-8 text-center'>
-                        {error}</p>}
+                    {error &&<div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm'>
+                        {error}</div>}
 
                         <form 
                         onSubmit={handleSubmit(login)}
-                        className='mt-8' >
-                            <div className = 'space-y-5'>
-                                <Input 
-                                label="E-mail:"
-                                placeholder="Enter Your E-mail"
-                                type="email"
-                                {...register("email",{
-                                    required:true,
-                                    validate:{
-                                        matchpattern:(value)=>/([\d\w]+[\.\w\d]*)\+?([\.\w\d]*)?@([\w\d]+[\.\w\d]*)/.test(value) || "Email address must be a valid address"
+                        className='space-y-4' >
+                            <Input 
+                            label="Email"
+                            placeholder="name@example.com"
+                            type="email"
+                            {...register("email",{
+                                required:true,
+                                validate:{
+                                    matchpattern:(value)=>/([\d\w]+[\.\w\d]*)\+?([\.\w\d]*)?@([\w\d]+[\.\w\d]*)/.test(value) || "Email address must be a valid address"
                                 
-                                    }
-                                })}
-                                />
-                                <Input 
-                                label="Password :"
-                                type="password"
-                                placeholder="Enter YOur Password" 
-                                {...register("password",{
-                                    required:true
-                                })}/>
-                                <Button
-                                type="submit"
-                                className='w-full'>
-                                    Sign in</Button>
-                            </div>
+                                }
+                            })}
+                            />
+                            <Input 
+                            label="Password"
+                            type="password"
+                            placeholder="Enter your password" 
+                            {...register("password",{
+                                required:true
+                            })}/>
+                            <Button
+                            type="submit"
+                            bgColor='bg-blue-600'
+                            className='w-full py-3 font-semibold'>
+                                Sign In</Button>
 
                         </form>
             </div>

@@ -15,12 +15,14 @@ export class Service{
     }
     async createPost({title ,slug ,content ,featuredImage,status,userId}){
         try {
+            console.log('Creating post with:', {title, slug, status, userId, hasImage: !!featuredImage});
             return await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
-                slug,
+                ID.unique(),
                 {
                     title,
+                    slug,
                     content,
                     featuredImage,
                     status,
@@ -28,33 +30,37 @@ export class Service{
                 }
             ) 
         } catch (error) {
-            console.log("Appwrite Service :: CreatePost :: error ::" ,error)
+            console.error("Appwrite Service :: CreatePost :: error ::", error);
+            throw error; // Re-throw to let caller handle it
         }
     }
 
-    async updatePost(slug,{title  ,content ,featuredImage,status}){
+    async updatePost(id,{title  ,content ,featuredImage,status,slug}){
         try {
+            console.log('Updating post:', {id, title, slug, status});
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
-                slug,
+                id,
                 {
                     title,
+                    slug,
                     content,
                     featuredImage,
                     status
                 }
             )
         } catch (error) {
-            console.log("Appwrite Service :: UpdatePost :: error ::" ,error)
+            console.error("Appwrite Service :: UpdatePost :: error ::", error);
+            throw error; // Re-throw to let caller handle it
         }
     }
-    async deletePost(slug){
+    async deletePost(id){
         try {
             await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
-                slug
+                id
             )
             return true;
         } catch (error) {
@@ -65,13 +71,15 @@ export class Service{
 
     async getPost(slug){
         try {
-            return await this.databases.getDocument(
+            const posts = await this.databases.listDocuments(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
-                slug
+                [Query.equal("slug",slug)]
             )
+            return posts.documents.length > 0 ? posts.documents[0] : null;
         } catch (error) {
             console.log("Appwrite Service :: GetPost :: error ::" ,error)
+            return null;
         }
     }
 
@@ -91,14 +99,17 @@ export class Service{
     //file upload Services...
     async uploadFile(file){
         try {
-            return await this.bucket.createFile(
+            console.log('Uploading file:', file.name, 'Size:', file.size);
+            const result = await this.bucket.createFile(
                 config.appwriteBucketId,
                 ID.unique(),
                 file
-            )
+            );
+            console.log('File uploaded successfully:', result.$id);
+            return result;
         } catch (error) {
-            console.log("Appwrite Service :: UploadPost :: error ::" ,error)
-            return false
+            console.error("Appwrite Service :: UploadFile :: error ::", error);
+            throw error; // Re-throw to let caller handle it
         }
     }
 
@@ -116,10 +127,52 @@ export class Service{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            config.appwriteBucketId,
-            fileId
-        )
+        try {
+            if (!fileId) {
+                console.warn('getFilePreview called with empty fileId');
+                return '';
+            }
+            
+            // Use Appwrite SDK's built-in method which returns a URL object
+            const filePreviewUrl = this.bucket.getFilePreview(
+                config.appwriteBucketId,
+                fileId
+            );
+            
+            // Convert URL object to string
+            const urlString = filePreviewUrl.toString();
+            console.log('🖼️ Generated Image URL:', urlString);
+            return urlString;
+        } catch (error) {
+            console.warn("⚠️ SDK method failed, using fallback REST URL");
+            // Fallback: construct URL manually without extra parameters
+            const endpoint = config.appwriteUrl;
+            const bucketId = config.appwriteBucketId;
+            const projectId = config.appwriteProjectId;
+            const fallbackUrl = `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/preview?project=${projectId}`;
+            console.log('🔄 Fallback URL:', fallbackUrl);
+            return fallbackUrl;
+        }
+    }
+
+    // Alternative method to get download URL as fallback
+    getFileDownloadUrl(fileId) {
+        try {
+            if (!fileId) {
+                return '';
+            }
+            const fileUrl = this.bucket.getFileDownload(
+                config.appwriteBucketId,
+                fileId
+            );
+            return fileUrl.toString();
+        } catch (error) {
+            console.warn("⚠️ Download URL failed, constructing manually");
+            const endpoint = config.appwriteUrl;
+            const bucketId = config.appwriteBucketId;
+            const projectId = config.appwriteProjectId;
+            return `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/download?project=${projectId}`;
+        }
     }
 }
 
